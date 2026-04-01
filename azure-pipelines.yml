@@ -1,0 +1,15 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- checkout: self
+  persistCredentials: true
+
+- script: |
+    git remote add github https://SEU_USUARIO:$(GITHUB_PAT)@github.com/SEU_USUARIO/REPO.git
+    git push github --all
+    git push github --tags
+  displayName: 'Sync to GitHub'
