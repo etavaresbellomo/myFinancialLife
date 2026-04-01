@@ -1,0 +1,22 @@
+name: Sync to Azure
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Push to Azure
+        run: |
+          git remote add azure https://SEU_USUARIO:${{ secrets.AZURE_PAT }}@dev.azure.com/ORG/PROJ/_git/REPO
+          git push azure --all
+          git push azure --tags
